@@ -1,22 +1,23 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import view.secondary.Observable;
 import view.secondary.Observer;
 import view.secondary.WordTableModel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Model implements Observable {
 	
-	private List<Observer> observers = new ArrayList<Observer>();
+	private List<Observer> observers = new ArrayList<>();
 	
 	private WordList wordList;
 	private WordTableModel tm;
 	private boolean isRunning;
-	private boolean isQuestedNow = false;
+	private static boolean isQuestedNow = false;
 	private Settings settings;
-	private List<Word> testingList = new ArrayList<Word>(); 
+	private List<Word> testingList = new ArrayList<>();
 	
 	private Clock clock = new Clock();
 		
@@ -26,7 +27,7 @@ public class Model implements Observable {
 		setTableModel(new WordTableModel(wordList.getList()));
 		wordList.addObserver(tm);
 		addObserver(clock);
-		
+		setRunning(false);
 	}
 	
 
@@ -53,19 +54,26 @@ public class Model implements Observable {
 
 	public void setRunning(boolean isRunning) {
 		clock.setFirst();
+
+		System.out.println("-----------------");
+		System.out.println(settings.isPrioritetConsidered());
+		System.out.println(wordList.getRandomNWords(settings.getTestingWord(), settings.isPrioritetConsidered()));
+		System.out.println("-----------------");
+
+
+
 		if (testingList.size() == 0)
 			setTestingList(wordList.getRandomNWords(
-					settings.getTestingWord(), 
+					settings.getTestingWord(),
 					settings.isPrioritetConsidered()));
-		
+		System.out.println("100");
 		this.isRunning = isRunning;
 		notifyObservers();
 	}
 
 	@Override
 	public void addObserver(Observer... obs) {
-		for (Observer observer : obs)
-			observers.add(observer);
+		Collections.addAll(observers, obs);
 	}
 
 	@Override
@@ -79,7 +87,7 @@ public class Model implements Observable {
             observer.update();
 	}
 
-	public boolean isQuestedNow() {
+	public static boolean isQuestedNow() {
 		return isQuestedNow;
 	}
 

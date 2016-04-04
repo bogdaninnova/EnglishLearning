@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <words>
-  <though note="" theme="" counter="0" prioritet="100" name1="though" translation1="С…РѕС‚СЏ" />
+  <though note="" theme="" counter="0" prioritet="100" name1="though" translation1="Хотя" />
+  <New note="" theme="" counter="0" prioritet="100" name1="New" translation1="Новый" />
+  <Old note="" theme="" counter="0" prioritet="100" name1="Old" translation1="Старый" />
+  <Book note="" theme="" counter="3" prioritet="98" name1="Book" translation1="Книга" />
 </words>

@@ -1,15 +1,14 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-
+import controller.Controller;
 import model.Settings;
 import model.Word;
 import view.secondary.Observer;
 import view.secondary.WordTable;
-import controller.Controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class ListFrame extends JFrame implements Observer {
@@ -133,8 +132,8 @@ public class ListFrame extends JFrame implements Observer {
 	        public void actionPerformed(ActionEvent e) {
 	        	Controller.getView().getQuestion().open(
 	        			Controller.getModel().getWordList().getRandomWord(
-	        					Controller.getModel().getTestingList(),
-	        					Controller.getModel().getSettings().isPrioritetConsidered()));
+								Controller.getModel().getTestingList(),
+								Controller.getModel().getSettings().isPrioritetConsidered()));
 			}
 		});
 		return testButton;

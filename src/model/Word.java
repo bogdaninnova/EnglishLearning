@@ -1,6 +1,5 @@
 package model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class Word {
@@ -20,11 +19,7 @@ public class Word {
 		this.names = new ArrayList<String>();
 		this.translations = new ArrayList<String>();
 		addName(name);
-		try {
-			addTranslation(new String(translation.getBytes(), "UTF-8"));//TODO ENCODING
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		addTranslation(translation);
 		counter = 0;
 		prioritet = 100;
 

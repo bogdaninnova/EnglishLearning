@@ -1,16 +1,16 @@
 package model;
 
+import controller.Controller;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import view.secondary.Observable;
+import view.secondary.Observer;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
-
-import org.jdom2.*;
-
-import controller.Controller;
-import view.secondary.Observable;
-import view.secondary.Observer;
 
 public class WordList implements Observable {
 
@@ -164,7 +164,23 @@ public class WordList implements Observable {
 	}
 
 	public List<Word> getRandomNWords(int amount, boolean isPrioritetConsidered) {
-		ArrayList<Word> newList = new ArrayList<Word>();
+		ArrayList<Word> newList = new ArrayList<>();
+
+
+		if (isPrioritetConsidered) {
+			int counter = 0;
+			for (Word word : list)
+				if (word.getPrioritet() > 0)
+					counter++;
+			if (counter <= amount)
+				return list;
+		} else {
+			if (list.size() <= amount)
+				return list;
+		}
+		System.out.println(list.size());
+		System.out.println(amount);
+
 		Word word;
 		while (true) {
 			word = list.get(new Random().nextInt(list.size()));
@@ -173,7 +189,13 @@ public class WordList implements Observable {
 				amount--;
 				if (amount == 0)
 					break;
-			}
+			} else
+				if (!newList.contains(word)) {
+					newList.add(word);
+					amount--;
+					if (amount == 0)
+						break;
+				}
 		}
 		if (newList.size() != 0)
 			return newList;
