@@ -1,10 +1,10 @@
 package model;
 
+import controller.Controller;
+import view.secondary.Observer;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import view.secondary.Observer;
-import controller.Controller;
 
 public class Clock implements Observer {
 
@@ -13,7 +13,7 @@ public class Clock implements Observer {
 
 	private class RemindTask extends TimerTask {
 		public void run() {
-			if (Controller.getModel().isRunning() && !Controller.getModel().isQuestedNow()) {
+			if (Model.isRunning() && !Model.isQuestedNow()) {
 	        	Controller.getView().getQuestion().open(
 	        			Controller.getModel().getWordList().getRandomWord(
 	        					Controller.getModel().getTestingList(),
@@ -24,7 +24,7 @@ public class Clock implements Observer {
 
 	@Override
 	public void update() {
-		if (!Controller.getModel().isQuestedNow()) {
+		if (!Model.isQuestedNow()) {
 			if (isItFirst) {
 				timer.schedule(new RemindTask(), 0);
 				isItFirst = false;

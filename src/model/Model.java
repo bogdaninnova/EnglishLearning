@@ -14,7 +14,7 @@ public class Model implements Observable {
 	
 	private WordList wordList;
 	private WordTableModel tm;
-	private boolean isRunning;
+	private static boolean isRunning;
 	private static boolean isQuestedNow = false;
 	private Settings settings;
 	private List<Word> testingList = new ArrayList<>();
@@ -29,8 +29,6 @@ public class Model implements Observable {
 		addObserver(clock);
 		setRunning(false);
 	}
-	
-
 
 	public WordTableModel getTableModel() {
 		return tm;
@@ -48,26 +46,17 @@ public class Model implements Observable {
 		this.wordList = wordList;
 	}
 
-	public boolean isRunning() {
+	public static boolean isRunning() {
 		return isRunning;
 	}
 
 	public void setRunning(boolean isRunning) {
 		clock.setFirst();
-
-		System.out.println("-----------------");
-		System.out.println(settings.isPrioritetConsidered());
-		System.out.println(wordList.getRandomNWords(settings.getTestingWord(), settings.isPrioritetConsidered()));
-		System.out.println("-----------------");
-
-
-
 		if (testingList.size() == 0)
 			setTestingList(wordList.getRandomNWords(
 					settings.getTestingWord(),
 					settings.isPrioritetConsidered()));
-		System.out.println("100");
-		this.isRunning = isRunning;
+		Model.isRunning = isRunning;
 		notifyObservers();
 	}
 
@@ -92,7 +81,7 @@ public class Model implements Observable {
 	}
 
 	public void setQuestedNow(boolean isQuestedNow) {
-		this.isQuestedNow = isQuestedNow;
+		Model.isQuestedNow = isQuestedNow;
 		notifyObservers();
 	}
 
